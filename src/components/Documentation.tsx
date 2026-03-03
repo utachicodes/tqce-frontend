@@ -1,72 +1,88 @@
-import { Book, PlayCircle } from 'lucide-react';
-import { DocumentationGrid } from './DocumentationGrid';
+import { Settings, Layers, Code } from 'lucide-react';
 
 export function Documentation() {
-    const codeSnippet = `import numpy as np
-from tqce import CausalNode, TQCEOrchestrator
-from tqce.viz import plot_convergence, plot_ctn_graph
-
-np.random.seed(42)
-
-# Build a causal loop: A -> B -> C with retrocausal C -> A
-engine = TQCEOrchestrator("My Problem")
-net = engine.build_network()
-
-net.add_node(CausalNode("A", time_coordinate=0.0, state_dim=4))
-net.add_node(CausalNode("B", time_coordinate=1.0, state_dim=4))
-net.add_node(CausalNode("C", time_coordinate=2.0, state_dim=4))
-
-net.add_causal_edge("A", "B", weight=0.8)
-net.add_causal_edge("B", "C", weight=0.6)
-net.add_retrocausal_edge("C", "A", weight=0.4)  # backward in time
-
-# Solve for a self-consistent timeline
-results = engine.solve(verbose=True)
-
-# Visualize
-plot_ctn_graph(net)
-plot_convergence(results["fixed_point"]["iteration_history"])`;
-
     return (
-        <section id="docs" className="docs-section">
-            <div className="section-header">
-                <h2 className="section-title">Documentation & Examples</h2>
-                <p className="section-subtitle">
-                    Comprehensive guides for integrating temporal logic into your processing pipelines.
-                </p>
+        <section id="docs" className="section-padding container">
+            <div className="reveal">
+                <span className="section-label">Developer Guide</span>
+                <h2 className="section-title">Get Started in Seconds</h2>
             </div>
 
-            <div id="quickstart" className="docs-grid mb-12">
-                <div className="docs-content glass-panel">
-                    <Book className="docs-icon" size={32} />
-                    <h2>Quick Start Setup</h2>
-                    <p>Initialize your first Temporal Quantum Causal Engine with just a few lines of code.</p>
-                    <ul className="docs-list">
-                        <li><strong>Nodes:</strong> Define <code>CausalNode</code>s across different time coordinates.</li>
-                        <li><strong>Edges:</strong> Use <code>add_causal_edge</code> for standard flow, and <code>add_retrocausal_edge</code> to close loops backward in time.</li>
-                        <li><strong>Solve:</strong> Invoke the orchestrator's solver.</li>
-                    </ul>
+            <div className="docs-layout" style={{ marginTop: '4rem' }}>
+                <div className="reveal delay-1">
+                    <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>Simple by Design</h3>
+                    <p style={{ color: 'var(--text-2)', fontSize: '1.125rem', marginBottom: '2rem' }}>
+                        TQCE is built to integrate seamlessly into existing Python workflows. Whether you're modeling simple causal chains or complex quantum networks, the API remains intuitive and high-performance.
+                    </p>
 
-                    <div className="action-row mt-6">
-                        <a href="https://github.com/utachicodes/tqce/blob/main/docs/examples.md" className="button-secondary">View Full Docs</a>
-                    </div>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                        <li style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                            <div style={{ background: 'var(--brand-glow)', color: 'var(--brand)', padding: '0.4rem', borderRadius: '8px' }}>
+                                <Settings size={18} />
+                            </div>
+                            <div>
+                                <h4 style={{ fontSize: '1.1rem', marginBottom: '0.2rem' }}>Zero Configuration</h4>
+                                <p style={{ color: 'var(--text-3)', fontSize: '0.9rem' }}>Sensible defaults for instant causal modeling.</p>
+                            </div>
+                        </li>
+                        <li style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                            <div style={{ background: 'rgba(124, 77, 255, 0.2)', color: '#7c4dff', padding: '0.4rem', borderRadius: '8px' }}>
+                                <Layers size={18} />
+                            </div>
+                            <div>
+                                <h4 style={{ fontSize: '1.1rem', marginBottom: '0.2rem' }}>Distributed Ready</h4>
+                                <p style={{ color: 'var(--text-3)', fontSize: '0.9rem' }}>Scale to clusters with simple orchestrator flags.</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
-                <div className="docs-code glass-panel no-padding syntax-wrapper">
+                <div className="code-window reveal delay-2">
                     <div className="code-header">
-                        <div className="mac-dots">
-                            <span></span><span></span><span></span>
+                        <div className="dots">
+                            <span style={{ background: '#ff5f56' }}></span>
+                            <span style={{ background: '#ffbd2e' }}></span>
+                            <span style={{ background: '#27c93f' }}></span>
                         </div>
-                        <span className="filename">examples/quick_start.py</span>
-                        <PlayCircle size={16} className="play-icon" />
+                        <div className="filename">main.py</div>
+                        <Code size={16} style={{ color: 'var(--text-3)' }} />
                     </div>
                     <pre>
-                        <code className="language-python">{codeSnippet}</code>
+                        <span style={{ color: '#7c4dff' }}>from</span> tqce <span style={{ color: '#7c4dff' }}>import</span> Orchestrator, Node<br /><br />
+                        <span style={{ color: 'var(--text-3)' }}># Initialize engine</span><br />
+                        engine = Orchestrator(mode=<span style={{ color: 'var(--brand)' }}>"quantum"</span>)<br /><br />
+                        <span style={{ color: 'var(--text-3)' }}># Define causal nodes</span><br />
+                        node_a = Node(<span style={{ color: 'var(--brand)' }}>"Event_A"</span>)<br />
+                        node_b = Node(<span style={{ color: 'var(--brand)' }}>"Event_B"</span>)<br /><br />
+                        <span style={{ color: 'var(--text-3)' }}># Create temporal bridge</span><br />
+                        engine.bridge(node_a, node_b, latency=<span style={{ color: '#ffbd2e' }}>0.042</span>)<br /><br />
+                        <span style={{ color: 'var(--text-3)' }}># Run simulation</span><br />
+                        engine.simulate()
                     </pre>
                 </div>
             </div>
 
-            <DocumentationGrid />
-        </section>
+            <div id="api" className="reveal" style={{ marginTop: '10rem' }}>
+                <span className="section-label">Reference</span>
+                <h2 className="section-title">Core Interfaces</h2>
+
+                <div className="bento-grid" style={{ marginTop: '3rem' }}>
+                    {[
+                        { title: 'Orchestrator', desc: 'Central engine manager for causal clusters.', tag: 'CORE' },
+                        { title: 'CausalNode', desc: 'Base unit for representing temporal events.', tag: 'API' },
+                        { title: 'Bridge', desc: 'Connects nodes with specific temporal properties.', tag: 'API' },
+                        { title: 'Resolver', desc: 'Resolves timeline conflicts in real-time.', tag: 'RESOLVER' }
+                    ].map((item, i) => (
+                        <div key={i} className={`bento-item reveal delay-${(i % 4) + 1}`}>
+                            <div className="feature-tag">{item.tag}</div>
+                            <div style={{ marginTop: 'auto' }}>
+                                <h4 className="mono" style={{ color: 'var(--brand)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>{item.title}</h4>
+                                <p style={{ fontSize: '0.9rem' }}>{item.desc}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section >
     );
 }
